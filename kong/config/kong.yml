@@ -1,0 +1,80 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: expense-service
+    url: http://expense-service:9094
+    routes:
+      # custom-auth is now route-scoped (was service-scoped) so the docs route below
+      # can bypass auth while the real API route stays protected.
+      - name: expense-route
+        paths:
+          - /expense/v1
+        strip_path: false
+        preserve_host: false
+        plugins:
+          - name: custom-auth
+            config:
+              auth_service_url: "http://auth-service:9090/auth/v1/ping"
+      - name: expense-docs-route
+        paths:
+          - /expense/v1/api-docs
+        strip_path: false
+        preserve_host: false
+
+  - name: message-service
+    url: http://message-service:8010
+    routes:
+      - name: message-route
+        paths:
+          - /message/v1
+        strip_path: false
+        preserve_host: false
+        plugins:
+          - name: custom-auth
+            config:
+              auth_service_url: "http://auth-service:9090/auth/v1/ping"
+      - name: message-docs-route
+        paths:
+          - /message/v1/api-docs
+        strip_path: false
+        preserve_host: false
+
+  - name: user-service
+    url: http://user-service:9091
+    routes:
+      - name: user-route
+        paths:
+          - /user/v1
+        strip_path: false
+        preserve_host: false
+        plugins:
+          - name: custom-auth
+            config:
+              auth_service_url: "http://auth-service:9090/auth/v1/ping"
+      - name: user-docs-route
+        paths:
+          - /user/v1/api-docs
+        strip_path: false
+        preserve_host: false
+
+  # auth-service has no Kong auth plugin (AuthService enforces its own Spring Security,
+  # which now permits the /auth/v1/v3/api-docs path), so no separate docs route is needed.
+  - name: auth-service
+    url: http://auth-service:9090
+    routes:
+      - name: auth-route
+        paths:
+          - /auth/v1
+        strip_path: false
+        preserve_host: false
+
+  # Unified Swagger UI, served through Kong so it shares the gateway origin (no CORS).
+  - name: swagger-ui
+    url: http://swagger-ui:8080
+    routes:
+      - name: swagger-ui-route
+        paths:
+          - /swagger-ui
+        strip_path: false
+        preserve_host: false

@@ -1,0 +1,86 @@
+{
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "Message processing service for ExpenseTracker.",
+    "title": "MessageService API",
+    "version": "v1"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/message/v1": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Service is up."
+          }
+        },
+        "summary": "Health check.",
+        "tags": [
+          "MessageService"
+        ]
+      }
+    },
+    "/message/v1/process": {
+      "post": {
+        "parameters": [
+          {
+            "description": "User id, injected by Kong from the validated token.",
+            "in": "header",
+            "name": "X-User-Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "message": {
+                    "description": "Free-text message to process.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Processed result, published to the expense_Event topic."
+          },
+          "400": {
+            "description": "Missing X-User-Id header or invalid message format."
+          }
+        },
+        "summary": "Process a message and emit an expense event.",
+        "tags": [
+          "MessageService"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "Via Kong gateway",
+      "url": "/"
+    }
+  ]
+}
