@@ -167,11 +167,16 @@ All four services publish OpenAPI specs, surfaced through a **single, unified Sw
 | Auth | `POST /auth/v1/login` | Log in, returns access + refresh tokens (public) |
 | Auth | `POST /auth/v1/logout` | Revoke the refresh token |
 | User | `GET /user/v1/getUser` | Get the current user’s profile |
-| User | `POST /user/v1/updateUser` | Create / update the profile |
+| User | `PUT /user/v1/updateUser` | Create / replace the profile (full update) |
+| User | `PATCH /user/v1/patchUser` | Update only the supplied profile fields |
 | Expense | `POST /expense/v1/addExpense` | Add an expense |
 | Expense | `GET /expense/v1/getAllExpenses` | List all expenses |
+| Expense | `GET /expense/v1/getExpense?expenseId=` | Get a single expense |
 | Expense | `GET /expense/v1/filterExpenses?from=&to=` | Filter by date-time range |
-| Message | `POST /message/v1/process` | Parse a free-text message into an expense |
+| Expense | `PUT /expense/v1/updateExpense` | Replace an existing expense (full update) |
+| Expense | `PATCH /expense/v1/patchExpense?expenseId=` | Update only the supplied expense fields |
+| Expense | `DELETE /expense/v1/deleteExpense?expenseId=` | Delete an expense |
+| Message | `POST /message/v1/process` | Parse a bank transaction message into an expense |
 
 ---
 
