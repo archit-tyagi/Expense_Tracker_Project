@@ -6,7 +6,7 @@ Every card swipe, UPI payment, or bank transfer fires off an SMS or alert like *
 
 Under the hood it’s a polyglot (Java + Python) microservices system: secured at the edge by an API gateway, wired together over an event-streaming backbone, and packaged to spin up with a single command.
 
-**📖 Live API Docs:** _<!-- TODO: add GitHub Pages URL -->_
+**📖 Live API Docs:** (https://archit-tyagi.github.io/Expense_Tracker_Project/)
 
 ---
 
@@ -157,7 +157,7 @@ bank transaction message ─▶ message-service (LLM parse) ─▶ Kafka "expens
 All four services publish OpenAPI specs, surfaced through a **single, unified Swagger UI**.
 
 - **Live (when the stack is running):** open **`http://localhost:8000/swagger-ui/`** — served through the gateway so there are no cross-origin issues. Use the dropdown to switch between Auth, User, Expense, and Message services.
-- **Hosted docs:** _<!-- TODO: add hosted docs URL (e.g. GitHub Pages) -->_
+- **Hosted docs:** https://archit-tyagi.github.io/Expense_Tracker_Project/
 
 **Endpoint cheat-sheet** (all paths are relative to the gateway, `http://localhost:8000`):
 
@@ -234,11 +234,11 @@ curl http://localhost:8000/expense/v1/getAllExpenses \
 
 | Service             | Source Repository | Docker Image |
 |---------------------|-------------------|--------------|
-| **auth-service**    | _<!-- TODO: add GitHub repo URL -->_ | _<!-- TODO: add Docker image URL -->_ |
-| **user-service**    | _<!-- TODO: add GitHub repo URL -->_ | _<!-- TODO: add Docker image URL -->_ |
-| **expense-service** | _<!-- TODO: add GitHub repo URL -->_ | _<!-- TODO: add Docker image URL -->_ |
-| **message-service** | _<!-- TODO: add GitHub repo URL -->_ | _<!-- TODO: add Docker image URL -->_ |
-| **kong**            | _<!-- TODO: add GitHub repo URL -->_ | _<!-- TODO: add Docker image URL -->_ |
+| **auth-service**    | https://github.com/archit-tyagi/AuthService | https://hub.docker.com/repository/docker/archittyagi221/auth-service/general |
+| **user-service**    | https://github.com/archit-tyagi/UserService | https://hub.docker.com/repository/docker/archittyagi221/user-service/general |
+| **expense-service** | https://github.com/archit-tyagi/ExpenseService | https://hub.docker.com/repository/docker/archittyagi221/expense-service/general |
+| **message-service** | https://github.com/archit-tyagi/MessageService | https://hub.docker.com/repository/docker/archittyagi221/message-service/general |
+| **kong**            | https://github.com/archit-tyagi/Expense_Tracker_Project/tree/main/kong | https://hub.docker.com/repository/docker/archittyagi221/kong/general |
 ---
 
 ## 📂 Project Structure
